@@ -14,10 +14,14 @@ from configman.converters import class_converter
 
 from socorro.app.fetch_transform_save_app import FetchTransformSaveWithSeparateNewCrashSourceApp
 from socorro.app.socorro_app import main
+
 from socorro.external.crashstorage_base import CrashIDNotFound
+from socorro.external.fs.crashstorage import FSDatedPermanentStorage
+
 from socorro.lib.util import DotDict
 from socorro.lib import raven_client
-from socorro.external.fs.crashstorage import FSDatedPermanentStorage
+
+#from socorro.processor.processor_2015 import Processor2015
 
 
 class ProcessorApp(FetchTransformSaveWithSeparateNewCrashSourceApp):
@@ -231,7 +235,7 @@ class ProcessorApp(FetchTransformSaveWithSeparateNewCrashSourceApp):
         )
 
     def close(self):
-        """when  the processor shutsdown, this function cleans up"""
+        """when the processor shutsdown, this function cleans up"""
         try:
             self.companion_process.close()
         except AttributeError:
